@@ -11,16 +11,23 @@ $(document).ready(function() {
         opr = $(this).text();
         num2 = num1;
         num1 = '';
-        if (num2 != '') {
-            $.ajax({
-                url: 'action.php',
-                method: 'POST',
-                data: {num1:num1, num2:num2, opr:opr},
-                success: function(res) {
-                    console.log(res);
-                }
-            });
-        }
     });
 
+    $('.keypad').on('click','.equal', function() {
+        $.ajax({
+            url: 'action.php',
+            method: 'post',
+            data: {num1: num1, num2: num2, opr: opr},
+            success: showData,
+        })
+    });
+
+    function showData(result) {
+        $('.display').text(result);
+        num1 = '';
+        num2 = '';
+        opr = '';
+    }
+
 });
+
